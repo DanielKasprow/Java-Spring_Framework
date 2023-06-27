@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Task;
 import com.example.demo.model.TaskRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,13 +53,13 @@ class  TaskController {
                 .orElse(ResponseEntity.notFound().build());
 
     }
+    @Transactional
     @RequestMapping(value = "/tasks/{id}" , method = RequestMethod.PATCH)
-    ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate){
+    public ResponseEntity<?> taggleTask(@PathVariable int id){
         if(!repository.existsById(id)){
             return ResponseEntity.notFound().build();
         }
-        toUpdate.setId(id);
-        repository.save(toUpdate);
+        repository.findById(id).ifPresent(task -> task.setDone(!task.isDone()));
         return ResponseEntity.noContent().build();
     }
 

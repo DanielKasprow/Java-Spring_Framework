@@ -3,6 +3,8 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tasks")
 public
@@ -14,6 +16,7 @@ class Task {
     //@NotBlank(message = "Tasks description must not be empty")
     private String description;
     private boolean done;
+    //private LocalDateTime deadLine;
 
     public Task() {
     }

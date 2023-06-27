@@ -1,0 +1,8 @@
+spring:
+    datasource:
+        url: 'jdbc:mysql://localhost/kurs'
+        username: 'root'
+        password: 'admin'
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    devtools.restart.enabled: true
+    jpa.hibernate.ddl-auto: none
