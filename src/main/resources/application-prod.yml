@@ -4,5 +4,4 @@ spring:
         username: 'root'
         password: 'admin'
         driver-class-name: com.mysql.cj.jdbc.Driver
-    devtools.restart.enabled: true
-    jpa.hibernate.ddl-auto: none
+    jpa.hibernate.ddl-auto: validate
