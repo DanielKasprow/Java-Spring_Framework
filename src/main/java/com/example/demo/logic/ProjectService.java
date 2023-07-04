@@ -42,11 +42,12 @@ public class ProjectService {
                     project.getSteps().stream()
                             .map(steps -> new Task(
                                             steps.getDescription(),
-                                            deadline.plusDays(steps.getDays_to_deadline())
+                                            deadline.plusDays(steps.getDaysToDeadline())
                                     )
                             ).collect(Collectors.toSet()));
-            return targetGroup;
-        }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found"));
+            targetGroup.setProject(project);
+            return groupRepository.save(targetGroup);
+        }).orElseThrow(() -> new IllegalArgumentException("id not Found"));
         return new GroupReadModel(result);
 
     }

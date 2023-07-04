@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequestScope
-public class TaskGrouService {
+public class TaskGroupService {
     private TaskGroupRepository repository;
     private TaskRepository taskRepository;
 
-    public TaskGrouService(TaskGroupRepository repository, TaskRepository taskRepository) {
+    public TaskGroupService(TaskGroupRepository repository, TaskRepository taskRepository) {
         this.repository = repository;
         this.taskRepository = taskRepository;
     }
