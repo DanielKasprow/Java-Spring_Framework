@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,9 @@ import java.util.List;
 @Controller
 class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
-    @Autowired
     private final TaskRepository repository;
 
-    TaskController(final TaskRepository repository) {
+    TaskController(@Qualifier("sqlTaskRepository") final TaskRepository repository) {
         this.repository = repository;
     }
 
