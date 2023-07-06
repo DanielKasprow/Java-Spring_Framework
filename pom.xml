@@ -18,6 +18,7 @@
         <kotlin.version>1.9.0-RC</kotlin.version>
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -32,7 +33,11 @@
             <artifactId>flyway-mysql</artifactId>
             <version>9.20.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

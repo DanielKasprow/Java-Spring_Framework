@@ -19,18 +19,23 @@ public class Task{
     @ManyToOne
     @JoinColumn(name = "task_group_id")
     private TaskGroup group;
-    Task() {
-    }
+
 
     public Task(String description, LocalDateTime deadline, TaskGroup group) {
         this.description = description;
         this.deadline = deadline;
-        this.group = group;
+        if(group != null) {
+            this.group = group;
+        }
     }
 
     public Task(String description, LocalDateTime deadline) {
-        this.description = description;
-        this.deadline = deadline;
+        this(description, deadline, null);
+
+    }
+
+    public Task() {
+
     }
 
 
