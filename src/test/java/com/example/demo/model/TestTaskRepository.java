@@ -45,4 +45,9 @@ public class TestTaskRepository implements TaskRepository{
     public Task save(Task entity) {
         return tasks.put(tasks.size() +1, entity);
     }
+
+    @Override
+    public List<Task> findAllByGroup_Id(Integer id) {
+        return List.of();
+    }
 }

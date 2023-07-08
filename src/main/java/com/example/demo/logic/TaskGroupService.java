@@ -6,6 +6,8 @@ import com.example.demo.model.TaskGroupRepository;
 import com.example.demo.model.TaskRepository;
 import com.example.demo.model.projection.GroupReadModel;
 import com.example.demo.model.projection.GroupWriteModel;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,17 +18,20 @@ public class TaskGroupService {
     private TaskGroupRepository taskGroupRepository;
     private TaskRepository taskRepository;
 
-    public TaskGroupService(TaskGroupRepository repository, TaskRepository taskRepository) {
+    public TaskGroupService(TaskGroupRepository repository,@Qualifier("sqlTaskRepository")  TaskRepository taskRepository) {
         this.taskGroupRepository = repository;
         this.taskRepository = taskRepository;
     }
 
+    public GroupReadModel createGroup(GroupWriteModel source){
+        return createGroup(source, null);
+    }
     GroupReadModel createGroup(final GroupWriteModel source, final Project project) {
         TaskGroup result = taskGroupRepository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
 
-    public List<GroupReadModel> readAll(){
+    public List<GroupReadModel> readAllGroups(){
         return taskGroupRepository.findAll().stream()
                 .map(GroupReadModel::new)
                 .collect(Collectors.toList());
