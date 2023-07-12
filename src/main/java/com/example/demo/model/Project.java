@@ -11,12 +11,10 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank
+    @NotBlank(message = "Project's description must not be empty")
     private String description;
-
     @OneToMany(mappedBy = "project")
     private Set<TaskGroup> groups;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private Set<ProjectSteps> steps;
 
@@ -27,7 +25,7 @@ public class Project {
         return id;
     }
 
-    void setId(int id) {
+    void setId(final int id) {
         this.id = id;
     }
 
@@ -35,7 +33,7 @@ public class Project {
         return description;
     }
 
-    void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -43,7 +41,7 @@ public class Project {
         return groups;
     }
 
-    void setGroups(Set<TaskGroup> groups) {
+    void setGroups(final Set<TaskGroup> groups) {
         this.groups = groups;
     }
 
@@ -51,8 +49,8 @@ public class Project {
         return steps;
     }
 
-    void setSteps(Set<ProjectSteps> steps) {
+    public void setSteps(final Set<ProjectSteps> steps) {
         this.steps = steps;
     }
-
 }
+

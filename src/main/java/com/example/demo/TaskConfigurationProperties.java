@@ -16,8 +16,7 @@ public class TaskConfigurationProperties {
         this.template = template;
     }
 
-    public class Template {
-
+    public static class Template {
         private boolean allowMultipleTasks;
 
         public boolean isAllowMultipleTasks() {

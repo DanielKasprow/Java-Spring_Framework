@@ -24,7 +24,7 @@ public class LogicConfiguration {
     @Bean
     TaskGroupService taskGroupService(
             final TaskGroupRepository taskGroupRepository,
-            @Qualifier("sqlTaskRepository") final TaskRepository taskRepository
+            final TaskRepository taskRepository
     ) {
         return new TaskGroupService(taskGroupRepository, taskRepository);
     }

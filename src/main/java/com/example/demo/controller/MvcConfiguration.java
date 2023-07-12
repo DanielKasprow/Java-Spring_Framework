@@ -9,16 +9,14 @@ import java.util.Set;
 
 @Configuration
 class MvcConfiguration implements WebMvcConfigurer {
+    private Set<HandlerInterceptor> interceptors;
 
-    private final Set<HandlerInterceptor> interceptors;
-
-    MvcConfiguration(Set<HandlerInterceptor> interceptors) {
+    MvcConfiguration(final Set<HandlerInterceptor> interceptors) {
         this.interceptors = interceptors;
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(final InterceptorRegistry registry) {
         interceptors.forEach(registry::addInterceptor);
-        registry.addInterceptor(new LoggerInterceptor());
     }
 }

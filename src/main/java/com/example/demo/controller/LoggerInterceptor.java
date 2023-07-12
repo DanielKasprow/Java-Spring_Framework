@@ -10,17 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Component
 class LoggerInterceptor implements HandlerInterceptor {
-    public static final Logger logger = LoggerFactory.getLogger(LoggerInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoggerInterceptor.class);
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("[preHandle]" + request.getMethod() + " " + request.getRequestURI());
-        return HandlerInterceptor.super.preHandle(request, response, handler);
-    }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.info("[postHandle]" + request.getMethod() + " " + request.getRequestURI());
-        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) {
+        logger.info("[preHandle] " + request.getMethod() + " " + request.getRequestURI());
+        return true;
     }
 }

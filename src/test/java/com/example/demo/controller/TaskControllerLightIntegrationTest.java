@@ -24,7 +24,6 @@ public class TaskControllerLightIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    @Qualifier("sqlTaskRepository")
     private TaskRepository repo;
     @Test
     void httpGet_returnsGivenTask() throws Exception {

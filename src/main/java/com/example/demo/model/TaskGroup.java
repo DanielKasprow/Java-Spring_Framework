@@ -13,7 +13,7 @@ class TaskGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank
+    @NotBlank(message = "Task group's description must not be empty")
     private String description;
     private boolean done;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
@@ -22,6 +22,7 @@ class TaskGroup {
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
+
     public TaskGroup() {
     }
 

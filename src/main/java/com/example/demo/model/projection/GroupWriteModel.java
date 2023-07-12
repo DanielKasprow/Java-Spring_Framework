@@ -2,13 +2,38 @@ package com.example.demo.model.projection;
 
 import com.example.demo.model.Project;
 import com.example.demo.model.TaskGroup;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class GroupWriteModel {
+    @NotBlank(message = "Task group's description must not be empty")
     private String description;
-    private Set<GroupTaskWriteModel> tasks;
+    @Valid
+    private List<GroupTaskWriteModel> tasks = new ArrayList<>();
+
+    public GroupWriteModel() {
+        tasks.add(new GroupTaskWriteModel());
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public List<GroupTaskWriteModel> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(final List<GroupTaskWriteModel> tasks) {
+        this.tasks = tasks;
+    }
 
     public TaskGroup toGroup(final Project project) {
         var result = new TaskGroup();
@@ -18,23 +43,7 @@ public class GroupWriteModel {
                         .map(source -> source.toTask(result))
                         .collect(Collectors.toSet())
         );
-        //result.setProject(project);
+        result.setProject(project);
         return result;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<GroupTaskWriteModel> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Set<GroupTaskWriteModel> tasks) {
-        this.tasks = tasks;
     }
 }

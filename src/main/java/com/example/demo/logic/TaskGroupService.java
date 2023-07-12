@@ -18,7 +18,7 @@ public class TaskGroupService {
     private TaskGroupRepository taskGroupRepository;
     private TaskRepository taskRepository;
 
-    public TaskGroupService(TaskGroupRepository repository,@Qualifier("sqlTaskRepository")  TaskRepository taskRepository) {
+    public TaskGroupService(TaskGroupRepository repository, TaskRepository taskRepository) {
         this.taskGroupRepository = repository;
         this.taskRepository = taskRepository;
     }

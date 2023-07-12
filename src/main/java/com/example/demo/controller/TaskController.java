@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.logic.TaskService;
 import com.example.demo.model.Task;
 import com.example.demo.model.TaskRepository;
 import jakarta.transaction.Transactional;
@@ -22,11 +21,9 @@ import java.util.concurrent.CompletableFuture;
 class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository taskRepository;
-    private final TaskService taskService;
 
-    TaskController(@Qualifier("sqlTaskRepository") final TaskRepository repository, TaskService taskService) {
-        this.taskRepository = repository;
-        this.taskService = taskService;
+    TaskController(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
     }
 
     //@RequestMapping(method = RequestMethod.GET, path = "/tasks")
@@ -38,32 +35,31 @@ class TaskController {
     }
 
 
-    @RequestMapping(params = {"!sort", "!page", "!size"}, method = RequestMethod.GET)
-    CompletableFuture<ResponseEntity<List<Task>>> readAllTasks() {
-        logger.warn("Exposing all the taks!");
-        return taskService.findAllAsync().thenApply(ResponseEntity::ok);
-
+    @GetMapping(params = {"!sort", "!page", "!size"})
+    ResponseEntity<List<Task>> readAllTasks() {
+        logger.warn("Exposing all the tasks!");
+        return ResponseEntity.ok(taskRepository.findAll());
     }
 
     @RequestMapping( method = RequestMethod.GET)
     ResponseEntity<List<Task>> readAllTasks(Pageable page) {
         logger.info("Custom pageable");
         return ResponseEntity.ok(taskRepository.findAll(page).getContent());
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     ResponseEntity<Task> readTask(@PathVariable int id) {
-        return taskRepository.findById(id).map(task -> ResponseEntity.ok(task))
+        return taskRepository.findById(id)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-
     }
     @GetMapping("/search/done")
-    ResponseEntity<List<Task>> readDoneTasks(@RequestParam(defaultValue = "true") boolean state){
+    ResponseEntity<List<Task>> readDoneTasks(@RequestParam(defaultValue = "true") boolean state) {
         return ResponseEntity.ok(
                 taskRepository.findByDone(state)
         );
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate) {
         if (!taskRepository.existsById(id)) {

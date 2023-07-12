@@ -2,11 +2,15 @@ package com.example.demo.model.projection;
 
 import com.example.demo.model.Task;
 import com.example.demo.model.TaskGroup;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 public class GroupTaskWriteModel {
+    @NotBlank(message = "Task's description must not be empty")
     private String description;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime deadline;
 
     public String getDescription() {
