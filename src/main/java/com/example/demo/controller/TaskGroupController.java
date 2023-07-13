@@ -24,6 +24,7 @@ import java.net.URI;
 import java.util.List;
 
 @Controller
+@IllegalExceptionProcessing
 @RequestMapping("/groups")
 class TaskGroupController {
     private static final Logger logger = LoggerFactory.getLogger(TaskGroupController.class);
@@ -91,14 +92,7 @@ class TaskGroupController {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e){
-        return ResponseEntity.notFound().build();
-    }
-    @ExceptionHandler(IllegalStateException.class)
-    ResponseEntity<String> handleIllegalState(IllegalStateException e){
-        return ResponseEntity.badRequest().body(e.getMessage());
-    }
+
 
     @ModelAttribute("groups")
     List<GroupReadModel> getGroups() {
